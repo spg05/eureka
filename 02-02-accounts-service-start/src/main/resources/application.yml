@@ -1,0 +1,32 @@
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:5001/eureka
+  instance:
+    instance-id: ${spring.application.name}:${random.value} 
+    
+spring:
+  application:
+     name: accounts-service
+     
+  datasource: 
+    url: jdbc:mysql://localhost/micro
+    username: root
+    password: root
+  jpa:
+    generate-ddl: true
+
+    
+server:
+  port: 0 
+  
+logging:
+  level: 
+    httpclient.wire: DEBUG 
+    
+    
+  
+ 
+ 
+  
