@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ldap="http://www.springframework.org/schema/ldap"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/ldap http://www.springframework.org/schema/ldap/spring-ldap-2.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+ 
+
+	<security:http auto-config="true">
+		<security:intercept-url pattern="/*" access="hasRole('ROLE_ADMIN')"/>
+		<security:form-login/>
+	</security:http>
+	
+
+	
+		
+	<security:authentication-manager>
+		<security:authentication-provider  user-service-ref="jdbcuserservice">			
+		</security:authentication-provider>	
+	</security:authentication-manager> 
+	
+	<!-- <security:jdbc-user-service id="jdbcuserservice" data-source-ref="ds"
+	 users-by-username-query="select username,password,enabled from users where username=?"
+	authorities-by-username-query="select username,authority from authorities where username=?"/> -->
+	
+	
+	<security:jdbc-user-service id="jdbcuserservice" data-source-ref="ds"  
+	group-authorities-by-username-query="select g.id, g.group_name, ga.authority from
+						groups g, group_members gm, group_authorities ga where
+						gm.username = ? and g.id = ga.group_id and g.id = gm.group_id"/>
+	
+	
+
+</beans>

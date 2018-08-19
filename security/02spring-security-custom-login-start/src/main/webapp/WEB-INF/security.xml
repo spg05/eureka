@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:ldap="http://www.springframework.org/schema/ldap"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/ldap http://www.springframework.org/schema/ldap/spring-ldap-2.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	
+  
+
+	<security:http auto-config="true" use-expressions="true">
+<!--  			
+		<security:intercept-url pattern="/home.htm" access="permitAll"/>
+		<security:intercept-url pattern="/login/form" access="permitAll"/> -->
+		
+		<security:intercept-url pattern="/**" access="hasRole('USER')"/>	
+		
+		
+		<!-- TODO -1  Configure form-login such that login page url is /login/form and 
+		authentication failure url as /login/form?error
+		
+		Configure Login processing url as /login. Configure username parameter as username and password parameter as password
+		 -->
+		
+		
+
+		<!-- TODO -2  configure logout url as /logout and logout success url as /login/form?logout . Also Make Sure that session is invalidated after logout  -->
+	
+
+	</security:http>	
+
+
+		
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>
+				<security:user name="siva" password="secret" authorities="ADMIN"/>
+				<security:user name="prasad" password="secret" authorities="USER"/>
+			</security:user-service>
+		</security:authentication-provider>	
+	</security:authentication-manager> 
+	
+
+
+</beans>
